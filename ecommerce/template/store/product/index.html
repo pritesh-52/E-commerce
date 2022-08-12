@@ -1,0 +1,38 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content%}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href="{% url 'home' %}">Home/</a>
+        <a  class ="text-white" href="{% url 'collections' %}">collections/</a>
+        <a  class ="text-white" href="{% url 'collectionsview' category.slug %}">{{category.name}}</a>
+    </div>
+  
+  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-2">
+      <h1>{{category.name}}</h1>
+      <hr>
+      <div class="row">
+        {% for item in products %}
+        <div class="col-md-3">
+          <div class="card" style="width: 18rem; height: 28rem; border-style: solid; border-width: 1px;">
+            <a href="{% url 'productview'  item.slug item.id %}"> <img src="{{item.product_image.url}} " alt="product image" class="w-100 mt-2"  height="300px"/></a>
+            <div class="bor1"></div>
+              <div class="card-body">
+                <h4 class="text-center card-title">{{item.name}}</h4>
+                <span class="float-start"><s>Rs. {{item.original_price | stringformat:'d'}} </s></span>
+                <span class="float-end fw-bold">Rs .{{item.selling_price | stringformat:'d'}}</span>
+                <a href="{% url 'productview'  item.slug item.id %}">  <button type="button" class="btn btn-success btn-sm ms-3 w-30 fs-5 cartpro" >Buy <i class="fa fa-cart-plus" aria-hidden="true"></i></button></a>
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  {% endblock content %}
